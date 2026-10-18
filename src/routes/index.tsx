@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight, Github, Linkedin, Youtube, Instagram, Music2, Mail, Bot, Code2, ShieldCheck, Terminal,
@@ -43,24 +44,64 @@ function Label({ n, t }: { n: string; t: string }) {
 }
 
 function Index() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        setScrollProgress((window.scrollY / totalHeight) * 100);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    const elements = document.querySelectorAll("[data-reveal]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.05, rootMargin: "0px 0px -20px 0px" }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className="relative min-h-screen">
+      {/* Scroll Progress Bar */}
+      <div
+        aria-hidden="true"
+        className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-primary via-accent to-primary z-[60] origin-left pointer-events-none transition-all duration-75 shadow-[0_0_10px_var(--accent)]"
+        style={{ width: `${scrollProgress}%` }}
+      />
+
       {/* Header — Transparan & Membaur Halus di Atas Hero */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/30 border-b border-border/10 transition-colors">
         <div className="mx-auto max-w-6xl px-6 flex items-center justify-between py-4">
-          <a href="#beranda" className="text-3xl font-extrabold tracking-tighter text-gradient">AR</a>
+          <a href="#beranda" className="text-3xl font-extrabold tracking-tighter text-gradient transition-transform hover:scale-105">AR</a>
           <nav className="hidden gap-1 text-sm md:flex">
             {nav.map((n, i) => (
               <a
                 key={n}
                 href={`#${n.toLowerCase()}`}
-                className={`rounded-full px-4 py-1.5 transition-colors ${i === 0 ? "glass" : "text-muted-foreground hover:text-foreground"}`}
+                className={`rounded-full px-4 py-1.5 transition-all duration-200 ${i === 0 ? "glass" : "text-muted-foreground hover:text-foreground hover:bg-secondary/40"}`}
               >
                 {n}
               </a>
             ))}
           </nav>
-          <a href="#kontak" className="btn-outline flex items-center gap-2 px-4 py-2 text-sm font-medium">
+          <a href="#kontak" className="btn-outline flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all hover:scale-105 active:scale-95">
             Mari Terhubung <ArrowRight size={14} />
           </a>
         </div>
@@ -78,20 +119,13 @@ function Index() {
         />
 
         {/* Gradasi Lembut Menghilangkan Batas Kaku Atas & Bawah */}
-        {/* Atas: Membaur dari header */}
         <div aria-hidden="true" className="absolute inset-x-0 top-0 h-40 -z-10 bg-gradient-to-b from-background via-background/60 to-transparent pointer-events-none" />
-        
-        {/* Kiri: Melindungi keterbacaan teks */}
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/90 to-background/25 pointer-events-none" />
-        
-        {/* Bawah: Melarutkan foto ke warna background tanpa garis batas */}
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-48 -z-10 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
-
-        {/* Ambient Glow di Transisi Bawah */}
-        <div aria-hidden="true" className="absolute -bottom-16 left-1/2 -translate-x-1/2 -z-10 h-44 w-3/4 max-w-4xl rounded-full bg-accent/10 blur-3xl pointer-events-none" />
+        <div aria-hidden="true" className="absolute -bottom-16 left-1/2 -z-10 h-44 w-3/4 max-w-4xl rounded-full bg-accent/10 blur-3xl pointer-events-none animate-pulse-glow" />
         
         <div className="mx-auto w-full max-w-6xl px-6 py-16 md:py-24 relative">
-          <div className="max-w-2xl">
+          <div data-reveal className="max-w-2xl">
             <span className="glass inline-flex w-fit items-center gap-2 rounded-full px-3 py-1 text-xs font-medium">
               <span className="h-2 w-2 rounded-full bg-success animate-pulse" />
               Available for Opportunities
@@ -103,10 +137,10 @@ function Index() {
               Mahasiswa Sistem Informasi Universitas Teknologi Digital Indonesia (UTDI) &amp; Full-Stack Developer Intern di CV Karya Wahana Sentosa. Berfokus pada rekayasa web modern, keamanan aplikasi, dan otomatisasi berbasis AI.
             </p>
             <div className="mt-7 flex flex-wrap gap-4">
-              <a href="#proyek" className="btn-primary flex items-center gap-2 px-6 py-3 text-sm font-semibold">
+              <a href="#proyek" className="btn-primary flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-all hover:scale-105 active:scale-95">
                 Jelajahi Proyek <ArrowRight size={16} />
               </a>
-              <a href="/CV_Arrafi_Nur_Hafiz.pdf" target="_blank" rel="noopener noreferrer" className="btn-outline flex items-center gap-2 px-6 py-3 text-sm font-semibold">
+              <a href="/CV_Arrafi_Nur_Hafiz.pdf" target="_blank" rel="noopener noreferrer" className="btn-outline flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-all hover:scale-105 active:scale-95">
                 Lihat CV <ExternalLink size={15} />
               </a>
             </div>
@@ -120,14 +154,14 @@ function Index() {
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={label}
                   title={label}
-                  className="glass grid h-9 w-9 place-items-center transition-all duration-200 hover:scale-110 hover:text-accent"
+                  className="glass grid h-9 w-9 place-items-center transition-all duration-200 hover:scale-110 hover:text-accent hover:border-accent/40"
                 >
                   <Icon size={16} />
                 </a>
               ))}
             </div>
           </div>
-          <p className="absolute top-1/2 -translate-y-1/2 right-6 md:right-12 lg:right-16 hidden -rotate-6 font-script text-2xl md:text-3xl leading-tight text-muted-foreground/90 md:block select-none drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+          <p className="absolute top-1/2 -translate-y-1/2 right-6 md:right-12 lg:right-16 hidden font-script text-2xl md:text-3xl leading-tight text-muted-foreground/90 md:block select-none drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] animate-float-script">
             Build<br />
             Learn<br />
             Share<br />
@@ -145,9 +179,14 @@ function Index() {
           [ShieldCheck, "Application Security", "Penerapan fundamental AppSec, Zero-Knowledge Proof (Semaphore), dan RBAC."],
           [Bot, "AI & Otomasi", "Pengembangan multi-agent AI swarm, Decision Support System (TOPSIS), dan automasi."],
           [Terminal, "Linux & DevOps", "Workflow Linux harian, Docker & Docker Compose, server setup, dan deployment."],
-        ].map(([Icon, title, desc]: any) => (
-          <div key={title} className="glass flex gap-4 p-5 transition-transform duration-200 hover:-translate-y-1">
-            <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-secondary text-accent">
+        ].map(([Icon, title, desc]: any, i: number) => (
+          <div
+            key={title}
+            data-reveal
+            style={{ transitionDelay: `${i * 80}ms` }}
+            className="glass flex gap-4 p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-[var(--shadow-glow)]"
+          >
+            <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-secondary text-accent transition-transform duration-300 group-hover:scale-110">
               <Icon size={22} />
             </div>
             <div>
@@ -160,7 +199,7 @@ function Index() {
 
       {/* Tentang Saya Section */}
       <section id="tentang" className="grid gap-6 py-16 lg:grid-cols-[1.2fr_1.1fr_1.1fr]">
-        <div className="flex flex-col justify-between">
+        <div data-reveal style={{ transitionDelay: "0ms" }} className="flex flex-col justify-between">
           <div>
             <Label n="01" t="TENTANG SAYA" />
             <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">
@@ -178,7 +217,7 @@ function Index() {
               href="/CV_Arrafi_Nur_Hafiz.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline flex items-center gap-2 px-4 py-2 text-sm font-medium"
+              className="btn-outline flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all hover:scale-105 active:scale-95"
             >
               Unduh CV <ArrowRight size={14} />
             </a>
@@ -186,7 +225,7 @@ function Index() {
               href="https://porto.rapydev.my.id"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline flex items-center gap-2 px-4 py-2 text-sm font-medium"
+              className="btn-outline flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all hover:scale-105 active:scale-95"
             >
               Portofolio Lengkap <ExternalLink size={14} />
             </a>
@@ -194,21 +233,21 @@ function Index() {
         </div>
 
         {/* Foto Potret Bersih — Bebas Halangan Teks */}
-        <div className="relative min-h-[380px] overflow-hidden rounded-2xl border border-accent/20 bg-secondary/30 shadow-xl group">
+        <div data-reveal style={{ transitionDelay: "120ms" }} className="relative min-h-[380px] overflow-hidden rounded-2xl border border-accent/20 bg-secondary/30 shadow-xl group">
           <img
             src={portrait}
             alt="Arrafi Nur Hafiz"
             loading="lazy"
             width={1086}
             height={1090}
-            className="h-full w-full object-cover object-[center_15%] transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-cover object-[center_15%] transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent pointer-events-none" />
         </div>
 
         {/* Kolom Kanan: Kutipan + Status Info */}
-        <div className="flex flex-col justify-between gap-4">
-          <div className="glass relative rounded-2xl border border-accent/20 p-5 shadow-lg">
+        <div data-reveal style={{ transitionDelay: "240ms" }} className="flex flex-col justify-between gap-4">
+          <div className="glass relative rounded-2xl border border-accent/20 p-5 shadow-lg transition-all duration-300 hover:border-accent/40">
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-1 rounded-l-2xl bg-accent" />
             <Quote aria-hidden="true" size={32} strokeWidth={1.5} className="text-accent mb-2" />
             <blockquote className="text-base font-semibold leading-relaxed sm:text-lg">
@@ -230,7 +269,7 @@ function Index() {
           </div>
 
           <div className="flex flex-col gap-2.5">
-            <div className="glass flex items-center gap-3 p-3.5 text-xs sm:text-sm">
+            <div className="glass flex items-center gap-3 p-3.5 text-xs sm:text-sm transition-all duration-200 hover:border-accent/40">
               <GraduationCap className="text-accent shrink-0" size={20} />
               <div>
                 <span className="font-semibold text-foreground">Universitas Teknologi Digital Indonesia</span>
@@ -238,7 +277,7 @@ function Index() {
                 <span className="text-xs text-muted-foreground">Sistem Informasi (S1) · 2024 – Sekarang</span>
               </div>
             </div>
-            <div className="glass flex items-center gap-3 p-3.5 text-xs sm:text-sm">
+            <div className="glass flex items-center gap-3 p-3.5 text-xs sm:text-sm transition-all duration-200 hover:border-accent/40">
               <Briefcase className="text-accent shrink-0" size={18} />
               <div>
                 <span className="font-semibold text-foreground">CV Karya Wahana Sentosa (KWaS)</span>
@@ -246,7 +285,7 @@ function Index() {
                 <span className="text-xs text-muted-foreground">Full-Stack Developer Intern</span>
               </div>
             </div>
-            <div className="glass flex items-center gap-3 p-3.5 text-xs sm:text-sm">
+            <div className="glass flex items-center gap-3 p-3.5 text-xs sm:text-sm transition-all duration-200 hover:border-accent/40">
               <MapPin size={18} className="text-accent shrink-0" />
               <span>Yogyakarta, Indonesia</span>
             </div>
@@ -256,7 +295,7 @@ function Index() {
 
       {/* Keahlian / Tech Stack */}
       <section id="keahlian" className="grid gap-4 lg:grid-cols-[1fr_1fr_1fr_0.65fr]">
-        <div className="lg:col-span-4">
+        <div data-reveal className="lg:col-span-4">
           <Label n="02" t="KEAHLIAN" />
           <h2 className="mt-1 text-3xl font-bold">Tech Stack &amp; Kompetensi</h2>
         </div>
@@ -264,20 +303,25 @@ function Index() {
           ["Frontend", [[Atom, "React"], [Boxes, "Next.js"], [FileCode2, "TypeScript"], [Code2, "JavaScript"]]],
           ["Backend", [[Server, "Node.js"], [Terminal, "Express.js"], [Code2, "PHP & Laravel"], [Code2, "FastAPI"]]],
           ["Database & Tools", [[Database, "MySQL & PG"], [Container, "Docker"], [Terminal, "Linux"], [GitBranch, "Git & GitHub"]]],
-        ].map(([title, items]: any) => (
-          <div key={title} className="glass p-5">
+        ].map(([title, items]: any, idx: number) => (
+          <div
+            key={title}
+            data-reveal
+            style={{ transitionDelay: `${idx * 80}ms` }}
+            className="glass p-5 transition-all duration-300 hover:border-accent/40 hover:shadow-[var(--shadow-glow)] hover:-translate-y-1"
+          >
             <h3 className="text-sm font-semibold">{title}</h3>
             <div className="mt-3 grid grid-cols-4 gap-2">
               {items.map(([Icon, name]: any) => (
-                <div key={name} className="flex flex-col items-center gap-1.5 text-center text-xs text-muted-foreground">
-                  <Icon className="text-accent" size={20} />
+                <div key={name} className="group flex flex-col items-center gap-1.5 text-center text-xs text-muted-foreground transition-all duration-200 hover:-translate-y-1 hover:text-accent">
+                  <Icon className="text-accent transition-transform duration-200 group-hover:scale-115" size={20} />
                   <span className="truncate max-w-full">{name}</span>
                 </div>
               ))}
             </div>
           </div>
         ))}
-        <pre className="glass p-4 font-mono text-[11px] text-accent flex flex-col justify-center">{`const rafi = {
+        <pre data-reveal style={{ transitionDelay: "240ms" }} className="glass p-4 font-mono text-[11px] text-accent flex flex-col justify-center transition-all duration-300 hover:border-accent/40 hover:shadow-[var(--shadow-glow)]">{`const rafi = {
   role: "Full-Stack Dev",
   campus: "UTDI Yogyakarta",
   stack: ["React", "Node", "PHP", "Docker"],
@@ -288,7 +332,7 @@ function Index() {
 
       {/* Proyek Pilihan */}
       <section id="proyek" className="py-16">
-        <div className="flex flex-wrap items-end justify-between gap-4">
+        <div data-reveal className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <Label n="03" t="PROYEK PILIHAN" />
             <h2 className="mt-1 text-3xl font-bold">Proyek Unggulan</h2>
@@ -297,7 +341,7 @@ function Index() {
             href="https://github.com/ArrafiNurHafiz"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-accent hover:underline font-medium"
+            className="flex items-center gap-2 text-sm text-accent hover:underline font-medium transition-all hover:translate-x-1"
           >
             Lihat Semua di GitHub <ArrowRight size={14} />
           </a>
@@ -326,13 +370,20 @@ function Index() {
               desc: "Adversarial Co-Evolution Multi-Agent Swarm untuk penemuan kerentanan kode otomatis dan penambalan patch keamanan secara otonom.",
               link: "https://github.com/ArrafiNurHafiz/AutoSec-Patch",
             },
-          ].map((item) => (
-            <article key={item.title} className="glass overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-glow)] hover:-translate-y-1 flex flex-col justify-between">
+          ].map((item, idx: number) => (
+            <article
+              key={item.title}
+              data-reveal
+              style={{ transitionDelay: `${idx * 120}ms` }}
+              className="glass overflow-hidden transition-all duration-400 hover:shadow-[var(--shadow-glow)] hover:-translate-y-2 hover:border-accent/40 flex flex-col justify-between group"
+            >
               <div>
-                <img src={item.img} alt={item.title} loading="lazy" className="aspect-video w-full object-cover" />
+                <div className="overflow-hidden aspect-video w-full">
+                  <img src={item.img} alt={item.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-108" />
+                </div>
                 <div className="p-5">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <h3 className="font-bold text-base">{item.title}</h3>
+                    <h3 className="font-bold text-base group-hover:text-accent transition-colors">{item.title}</h3>
                     {item.tags.map((tag) => (
                       <span key={tag} className="rounded-full border border-border px-2 py-0.5 text-[10px] text-muted-foreground">
                         {tag}
@@ -347,10 +398,10 @@ function Index() {
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-between rounded-xl border border-border/80 bg-background/50 px-4 py-2.5 text-xs font-medium text-foreground transition-all hover:border-accent hover:text-accent"
+                  className="inline-flex w-full items-center justify-between rounded-xl border border-border/80 bg-background/50 px-4 py-2.5 text-xs font-medium text-foreground transition-all hover:border-accent hover:text-accent hover:bg-secondary/40"
                 >
                   <span>Buka Proyek</span>
-                  <ExternalLink size={14} />
+                  <ExternalLink size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
               </div>
             </article>
@@ -360,7 +411,7 @@ function Index() {
 
       {/* Pengalaman & Perjalanan */}
       <section id="pengalaman">
-        <div className="flex items-end justify-between">
+        <div data-reveal className="flex items-end justify-between">
           <div>
             <Label n="04" t="PENGALAMAN &amp; PERJALANAN" />
             <h2 className="mt-1 text-3xl font-bold">Perjalanan &amp; Karier</h2>
@@ -372,9 +423,14 @@ function Index() {
             ["2024 – Sekarang", "S1 Sistem Informasi", "Universitas Teknologi Digital Indonesia", "Mendalami rekayasa perangkat lunak, sistem basis data, algoritma pendukung keputusan, dan keamanan siber."],
             ["2025 – Sekarang", "Tech Content Creator", "YouTube @RapyTech & TikTok", "Membagikan konten edukasi, tips Linux, web development, dan implementasi otomasi AI untuk komunitas teknologi."],
             ["Visi Berkelanjutan", "Continuous Learning", "Web, Security & AI", "Terus berevolusi menciptakan perangkat lunak aman, andal, dan memberikan dampak nyata bagi masyarakat luas."],
-          ].map(([period, role, place, detail]) => (
-            <div key={role} className="relative">
-              <span className="absolute -top-[31px] h-3 w-3 rounded-full bg-primary shadow-[var(--shadow-glow)]" />
+          ].map(([period, role, place, detail], idx: number) => (
+            <div
+              key={role}
+              data-reveal
+              style={{ transitionDelay: `${idx * 100}ms` }}
+              className="relative transition-transform duration-300 hover:-translate-y-1"
+            >
+              <span className="absolute -top-[31px] h-3 w-3 rounded-full bg-primary shadow-[var(--shadow-glow)] animate-pulse" />
               <p className="text-xs font-mono font-semibold text-accent">{period}</p>
               <h3 className="mt-1 text-sm font-bold text-foreground">{role}</h3>
               <p className="text-xs font-medium text-muted-foreground">{place}</p>
@@ -386,7 +442,7 @@ function Index() {
 
       {/* Prestasi & Penghargaan */}
       <section id="prestasi" className="py-16">
-        <div>
+        <div data-reveal>
           <Label n="05" t="PRESTASI &amp; PENGHARGAAN" />
           <h2 className="mt-1 text-3xl font-bold">Kompetisi &amp; Pencapaian</h2>
         </div>
@@ -416,8 +472,13 @@ function Index() {
               role: "Peringkat 100 / 314",
               desc: "Seamplified Media Pte. Ltd. bersama PT. Mentor Karya Remaja.",
             },
-          ].map((item) => (
-            <div key={item.title} className="glass p-5 flex flex-col justify-between transition-transform duration-200 hover:-translate-y-1">
+          ].map((item, idx: number) => (
+            <div
+              key={item.title}
+              data-reveal
+              style={{ transitionDelay: `${idx * 90}ms` }}
+              className="glass p-5 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-[var(--shadow-glow)]"
+            >
               <div>
                 <div className="flex items-center justify-between text-xs font-mono text-accent">
                   <span>{item.year}</span>
@@ -435,7 +496,7 @@ function Index() {
       </section>
 
       {/* Kontak Section */}
-      <section id="kontak" className="glass grid items-center gap-8 p-8 md:grid-cols-[1.2fr_auto_1fr] rounded-3xl border border-accent/20">
+      <section id="kontak" data-reveal className="glass grid items-center gap-8 p-8 md:grid-cols-[1.2fr_auto_1fr] rounded-3xl border border-accent/20 transition-all duration-300 hover:border-accent/40 hover:shadow-[var(--shadow-glow)]">
         <div>
           <h2 className="text-3xl font-bold">Mari Berkolaborasi</h2>
           <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
@@ -460,7 +521,7 @@ function Index() {
         <div className="flex flex-col sm:flex-row md:flex-col gap-3">
           <a
             href="mailto:arrafinur3@gmail.com"
-            className="btn-primary flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold"
+            className="btn-primary flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold transition-all hover:scale-105 active:scale-95"
           >
             Kirim Email <ArrowRight size={16} />
           </a>
@@ -468,7 +529,7 @@ function Index() {
             href="https://wa.me/6285927274835"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-outline flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold"
+            className="btn-outline flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold transition-all hover:scale-105 active:scale-95"
           >
             WhatsApp <ExternalLink size={15} />
           </a>
@@ -476,7 +537,7 @@ function Index() {
             href="/CV_Arrafi_Nur_Hafiz.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-outline flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold"
+            className="btn-outline flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold transition-all hover:scale-105 active:scale-95"
           >
             Unduh CV (PDF) <ExternalLink size={15} />
           </a>
@@ -510,7 +571,7 @@ function Index() {
               rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
               aria-label={label}
               title={label}
-              className="glass grid h-8 w-8 place-items-center transition-all hover:scale-110 hover:text-accent"
+              className="glass grid h-8 w-8 place-items-center transition-all hover:scale-110 hover:text-accent hover:border-accent/40"
             >
               <Icon size={15} />
             </a>
@@ -518,7 +579,7 @@ function Index() {
           <a
             href="#beranda"
             aria-label="Kembali ke atas"
-            className="grid h-8 w-8 place-items-center rounded-full border border-border hover:border-accent hover:text-accent transition-colors ml-2"
+            className="grid h-8 w-8 place-items-center rounded-full border border-border hover:border-accent hover:text-accent transition-all hover:scale-110 ml-2"
           >
             <ArrowUp size={15} />
           </a>
