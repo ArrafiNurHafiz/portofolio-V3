@@ -44,9 +44,10 @@ function Label({ n, t }: { n: string; t: string }) {
 
 function Index() {
   return (
-    <div className="min-h-screen">
-      <div className="mx-auto max-w-6xl px-6">
-        <header className="flex items-center justify-between py-5">
+    <div className="relative min-h-screen">
+      {/* Header — Transparan & Membaur Halus di Atas Hero */}
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-background/30 border-b border-border/10 transition-colors">
+        <div className="mx-auto max-w-6xl px-6 flex items-center justify-between py-4">
           <a href="#beranda" className="text-3xl font-extrabold tracking-tighter text-gradient">AR</a>
           <nav className="hidden gap-1 text-sm md:flex">
             {nav.map((n, i) => (
@@ -62,20 +63,32 @@ function Index() {
           <a href="#kontak" className="btn-outline flex items-center gap-2 px-4 py-2 text-sm font-medium">
             Mari Terhubung <ArrowRight size={14} />
           </a>
-        </header>
-      </div>
+        </div>
+      </header>
 
-      {/* Hero Section — Full-Bleed Tanpa Container Box */}
-      <section id="beranda" className="relative isolate overflow-hidden min-h-[78vh] flex items-center border-b border-border/40">
+      {/* Hero Section — Aliran Alami Tanpa Garis Kaku */}
+      <section id="beranda" className="relative isolate overflow-hidden min-h-[82vh] flex items-center -mt-[69px] pt-[69px]">
+        {/* Gambar Latar dengan Soft Mask & Bleed */}
         <img
           src={hero}
           alt="Workspace developer di malam hari"
           width={1920}
           height={1080}
-          className="absolute inset-0 -z-20 h-full w-full object-cover object-[65%_center] md:object-[80%_center]"
+          className="absolute inset-0 -z-30 h-full w-full object-cover object-[65%_center] md:object-[80%_center]"
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-background via-background/85 to-background/60 md:bg-gradient-to-r md:from-background md:via-background/90 md:to-background/25" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-background via-transparent to-background/30" />
+
+        {/* Gradasi Lembut Menghilangkan Batas Kaku Atas & Bawah */}
+        {/* Atas: Membaur dari header */}
+        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-40 -z-10 bg-gradient-to-b from-background via-background/60 to-transparent pointer-events-none" />
+        
+        {/* Kiri: Melindungi keterbacaan teks */}
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/90 to-background/25 pointer-events-none" />
+        
+        {/* Bawah: Melarutkan foto ke warna background tanpa garis batas */}
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-48 -z-10 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
+
+        {/* Ambient Glow di Transisi Bawah */}
+        <div aria-hidden="true" className="absolute -bottom-16 left-1/2 -translate-x-1/2 -z-10 h-44 w-3/4 max-w-4xl rounded-full bg-accent/10 blur-3xl pointer-events-none" />
         
         <div className="mx-auto w-full max-w-6xl px-6 py-16 md:py-24 relative">
           <div className="max-w-2xl">
@@ -114,15 +127,19 @@ function Index() {
               ))}
             </div>
           </div>
-          <p className="absolute bottom-2 right-6 hidden -rotate-6 font-script text-2xl leading-6 text-muted-foreground md:right-8 md:block select-none">
-            Build<br />Learn<br />Share<br />Make an Impact
+          <p className="absolute top-1/2 -translate-y-1/2 right-6 md:right-12 lg:right-16 hidden -rotate-6 font-script text-2xl md:text-3xl leading-tight text-muted-foreground/90 md:block select-none drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+            Build<br />
+            Learn<br />
+            Share<br />
+            <span className="text-accent font-semibold">Make an Impact</span>
           </p>
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-6">
-        {/* Overview Cards */}
-        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-8">
+      {/* Konten Utama — Mengalir Lembut Menjembatani Hero */}
+      <div className="mx-auto max-w-6xl px-6 relative z-10 -mt-6 sm:-mt-10">
+        {/* Overview Cards — Floating Halus di Atas Transisi Bawah */}
+        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
           [Code2, "Full-Stack Web", "Frontend modern React & Next.js, backend REST API, serta basis data relasional terstruktur."],
           [ShieldCheck, "Application Security", "Penerapan fundamental AppSec, Zero-Knowledge Proof (Semaphore), dan RBAC."],
