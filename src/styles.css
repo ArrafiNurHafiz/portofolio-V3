@@ -5,26 +5,45 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Industrial Brutalism & Tactical Telemetry UI Design System
- * Pure mathematical grid, rigid corners (0px border-radius), 
- * Tactical CRT palette (#0c0d0e background, #e6e6e6 phosphor foreground, #ff2a2a hazard red accent),
- * Mechanical scanlines & micro-telemetry data styling.
+ * Obsidian Monochrome & Refined Glassmorphism System
+ * Sourced directly from /home/arrafi/RAFI/linktree design language:
+ * Deep charcoal obsidian background, pure neutral typography, refined frosted glass panels,
+ * subtle physical grain, zero neon glow, crisp emerald active indicator.
  */
 
+:root {
+  --radius: 0.85rem;
+  --background: oklch(0.12 0.005 240); /* Deep charcoal obsidian */
+  --foreground: oklch(0.95 0.005 240);
+  --muted: oklch(0.16 0.005 240);
+  --muted-foreground: oklch(0.68 0.008 240);
+  --border: oklch(1 0 0 / 8%);
+  --border-strong: oklch(1 0 0 / 14%);
+  --accent: oklch(0.72 0.015 240); /* Monochrome silver/platinum accent */
+  --online: oklch(0.75 0.16 142); /* Crisp emerald indicator */
+  --glass: oklch(0.17 0.005 240 / 65%);
+  --card: oklch(0.16 0.005 240 / 70%);
+  --card-foreground: oklch(0.95 0.005 240);
+  --primary: oklch(0.95 0.005 240);
+  --primary-foreground: oklch(0.12 0.005 240);
+  --secondary: oklch(0.18 0.005 240);
+  --secondary-foreground: oklch(0.95 0.005 240);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.72 0.015 240);
+}
+
 @theme inline {
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
-  --radius-2xl: 0px;
-  --radius-3xl: 0px;
-  --radius-4xl: 0px;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
@@ -32,176 +51,127 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-success: var(--success);
+  --color-online: var(--online);
+  --color-glass: var(--glass);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --font-sans: "Space Grotesk", "Plus Jakarta Sans", -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", "Space Mono", monospace;
-}
-
-:root {
-  --radius: 0px;
-  /* Tactical Telemetry Palette: Uncompromising CRT Dark Matrix */
-  --background: #090a0c;
-  --foreground: #e4e7eb;
-  --card: #0f1115;
-  --card-foreground: #e4e7eb;
-  --popover: #0f1115;
-  --popover-foreground: #e4e7eb;
-  
-  --primary: #ff2a2a;
-  --primary-foreground: #ffffff;
-  --secondary: #14171d;
-  --secondary-foreground: #d2d7df;
-  
-  --muted: #161920;
-  --muted-foreground: #818a99;
-  
-  --accent: #ff2a2a;
-  --accent-foreground: #ffffff;
-  --terminal-green: #39e53d;
-  --success: #39e53d;
-  --destructive: #ff2a2a;
-  --destructive-foreground: #ffffff;
-  
-  --border: #222733;
-  --border-strong: #333a4d;
-  --input: #1a1e27;
-  --ring: #ff2a2a;
+  --font-sans: "DM Sans", "Plus Jakarta Sans", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
 @layer base {
   * {
     border-color: var(--border);
-    border-radius: 0px !important;
   }
 
   body {
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
-    letter-spacing: -0.015em;
+    min-height: 100dvh;
+    overflow-x: hidden;
   }
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #090a0c;
+  background-color: oklch(0.12 0.005 240);
 }
 
-/* Simulated CRT Scanlines Overlay */
-.crt-overlay {
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.15),
-    rgba(0, 0, 0, 0.15) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  pointer-events: none;
-}
-
-/* Mechanical Blueprint Crosshair Mark */
-.crosshair-corner {
+/* Tasteful, refined glassmorphic surface - zero neon glow, pure precision */
+@utility glass {
+  background: linear-gradient(180deg, oklch(0.19 0.005 240 / 60%) 0%, oklch(0.14 0.005 240 / 75%) 100%);
+  border: 1px solid oklch(1 0 0 / 9%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 20px -2px oklch(0 0 0 / 50%), inset 0 1px 0 0 oklch(1 0 0 / 12%);
+  border-radius: 1rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-}
-.crosshair-corner::before,
-.crosshair-corner::after {
-  content: "+";
-  position: absolute;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--muted-foreground);
-  opacity: 0.6;
-  pointer-events: none;
-}
-.crosshair-corner::before {
-  top: -6px;
-  left: -5px;
-}
-.crosshair-corner::after {
-  bottom: -6px;
-  right: -5px;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: oklch(1 0 0 / 22%);
+    background: linear-gradient(180deg, oklch(0.22 0.005 240 / 70%) 0%, oklch(0.16 0.005 240 / 85%) 100%);
+    box-shadow: 0 12px 30px -4px oklch(0 0 0 / 60%), inset 0 1px 0 0 oklch(1 0 0 / 25%);
+  }
+
+  &:active {
+    transform: translateY(0px) scale(0.99);
+  }
 }
 
-/* Utilities */
-@utility font-mono-data {
-  font-family: var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+@utility glass-static {
+  background: linear-gradient(180deg, oklch(0.19 0.005 240 / 60%) 0%, oklch(0.14 0.005 240 / 75%) 100%);
+  border: 1px solid oklch(1 0 0 / 9%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 20px -2px oklch(0 0 0 / 50%), inset 0 1px 0 0 oklch(1 0 0 / 12%);
+  border-radius: 1rem;
 }
 
-@utility brutal-box {
-  background-color: var(--card);
-  border: 1px solid var(--border);
-}
-
-@utility brutal-btn {
+@utility btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 700;
-  border: 1px solid var(--border-strong);
-  background: var(--secondary);
+  background-color: var(--foreground);
+  color: var(--background);
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.65rem 1.4rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
+
+  &:hover {
+    transform: translateY(-1px);
+    background-color: #ffffff;
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.16);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+@utility btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid oklch(1 0 0 / 14%);
+  background-color: oklch(0.16 0.005 240 / 40%);
   color: var(--foreground);
-  padding: 0.65rem 1.25rem;
-  transition: all 0.15s ease-out;
-  cursor: pointer;
-  
+  backdrop-filter: blur(12px);
+  font-weight: 500;
+  border-radius: 9999px;
+  padding: 0.65rem 1.4rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
   &:hover {
-    background: var(--accent);
-    color: #ffffff;
-    border-color: var(--accent);
-    transform: translate(-1px, -1px);
+    border-color: oklch(1 0 0 / 30%);
+    background-color: oklch(0.2 0.005 240 / 70%);
+    transform: translateY(-1px);
   }
-  
+
   &:active {
-    transform: translate(1px, 1px);
+    transform: translateY(0) scale(0.98);
   }
 }
 
-@utility brutal-btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 700;
-  border: 1px solid var(--accent);
-  background: var(--accent);
-  color: #ffffff;
-  padding: 0.65rem 1.25rem;
-  transition: all 0.15s ease-out;
-  cursor: pointer;
-  
-  &:hover {
-    background: #e01b1b;
-    border-color: #e01b1b;
-    transform: translate(-1px, -1px);
-  }
-  
-  &:active {
-    transform: translate(1px, 1px);
-  }
+/* Authentic physical grain texture */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
 }
 
 /* Scroll reveal utility classes */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
