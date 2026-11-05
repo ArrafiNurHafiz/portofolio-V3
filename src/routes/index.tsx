@@ -1,9 +1,26 @@
 import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  ArrowRight, Github, Linkedin, Youtube, Instagram, Music2, Mail, Bot, Code2, ShieldCheck, Terminal,
-  GraduationCap, MapPin, Quote, ChevronLeft, ChevronRight, ArrowUp, Atom, Server, Database, Container, GitBranch, Figma, Boxes, FileCode2,
-  Briefcase, Award, ExternalLink, Phone,
+  ArrowRight,
+  Github,
+  Linkedin,
+  Youtube,
+  Instagram,
+  Music2,
+  Mail,
+  Bot,
+  Code2,
+  ShieldCheck,
+  Terminal,
+  ExternalLink,
+  Award,
+  Phone,
+  Server,
+  Database,
+  Cpu,
+  Layers,
+  CheckCircle2,
+  AlertTriangle,
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import portrait from "@/assets/portrait.jpg";
@@ -13,48 +30,78 @@ import p2 from "@/assets/p2.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Arrafi Nur Hafiz — Full-Stack Developer & Security Enthusiast" },
-      { name: "description", content: "Portofolio Arrafi Nur Hafiz: Full-Stack Web Development, Cybersecurity, Otomasi AI, dan DevOps. Mahasiswa Sistem Informasi UTDI & Developer Intern KWaS." },
-      { property: "og:title", content: "Arrafi Nur Hafiz — Portofolio & Karya" },
-      { property: "og:description", content: "Building secure digital experiences: Web, Security, AI, DevOps." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { title: "ARRAFI NUR HAFIZ // TACTICAL TELEMETRY & FULL-STACK ENG" },
+      {
+        name: "description",
+        content:
+          "System Dossier & Technical Portfolio: Arrafi Nur Hafiz. Full-Stack Web Architecture, AppSec, Autonomous AI Swarms, and Linux/DevOps Systems.",
+      },
+      { property: "og:title", content: "ARRAFI NUR HAFIZ [ENG // SEC // AI]" },
+      {
+        property: "og:description",
+        content: "Industrial Brutalism & Tactical Telemetry System.",
+      },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500&family=JetBrains+Mono&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap",
+      },
     ],
   }),
   component: Index,
 });
 
-const nav = ["Beranda", "Tentang", "Keahlian", "Proyek", "Pengalaman", "Prestasi", "Kontak"];
-
-const socials = [
-  { icon: Github, label: "GitHub", href: "https://github.com/ArrafiNurHafiz" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/arrafi-nur-hafiz-06b7083a1" },
-  { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@RapyTech" },
-  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/affiizzz/" },
-  { icon: Music2, label: "TikTok", href: "https://www.tiktok.com/@arrafinurhz" },
-  { icon: Mail, label: "Email", href: "mailto:arrafinur3@gmail.com" },
+const navigation = [
+  { id: "telemetry", label: "00 // STATUS" },
+  { id: "profile", label: "01 // DOSSIER" },
+  { id: "capabilities", label: "02 // MODULES" },
+  { id: "projects", label: "03 // DEPLOYMENTS" },
+  { id: "timeline", label: "04 // TIMELINE" },
+  { id: "awards", label: "05 // CITATIONS" },
+  { id: "comms", label: "06 // COMMS" },
 ];
 
-function Label({ n, t }: { n: string; t: string }) {
-  return <p className="font-mono text-xs tracking-widest text-accent">// {n}. {t}</p>;
+const socialLinks = [
+  { icon: Github, label: "GH", href: "https://github.com/ArrafiNurHafiz" },
+  { icon: Linkedin, label: "IN", href: "https://www.linkedin.com/in/arrafi-nur-hafiz-06b7083a1" },
+  { icon: Youtube, label: "YT", href: "https://www.youtube.com/@RapyTech" },
+  { icon: Instagram, label: "IG", href: "https://www.instagram.com/affiizzz/" },
+  { icon: Music2, label: "TK", href: "https://www.tiktok.com/@arrafinurhz" },
+  { icon: Mail, label: "EM", href: "mailto:arrafinur3@gmail.com" },
+];
+
+function HeaderBlock({ code, title, tag }: { code: string; title: string; tag?: string }) {
+  return (
+    <div className="border-b border-[#222733] pb-3 mb-6 flex flex-wrap items-end justify-between gap-2">
+      <div>
+        <p className="font-mono text-xs tracking-widest text-[#ff2a2a]">
+          [ SECTION_INDEX :: {code} ]
+        </p>
+        <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-[#e4e7eb]">
+          {title}
+        </h2>
+      </div>
+      {tag && (
+        <span className="font-mono text-[11px] px-2 py-0.5 border border-[#333a4d] bg-[#14171d] text-[#818a99]">
+          {tag}
+        </span>
+      )}
+    </div>
+  );
 }
 
 function Index() {
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [timestamp, setTimestamp] = useState<string>("");
 
   useEffect(() => {
-    const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight > 0) {
-        setScrollProgress((window.scrollY / totalHeight) * 100);
-      }
+    const updateTime = () => {
+      const now = new Date();
+      setTimestamp(now.toISOString().replace("T", " // ").substring(0, 22) + " UTC");
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
 
     const elements = document.querySelectorAll("[data-reveal]");
     const observer = new IntersectionObserver(
@@ -66,526 +113,569 @@ function Index() {
           }
         });
       },
-      { threshold: 0.05, rootMargin: "0px 0px -20px 0px" }
+      { threshold: 0.05, rootMargin: "0px 0px -10px 0px" }
     );
 
     elements.forEach((el) => observer.observe(el));
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      clearInterval(interval);
       observer.disconnect();
     };
   }, []);
 
   return (
-    <div className="relative min-h-screen">
-      {/* Scroll Progress Bar */}
-      <div
-        aria-hidden="true"
-        className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-primary via-accent to-primary z-[60] origin-left pointer-events-none transition-all duration-75 shadow-[0_0_10px_var(--accent)]"
-        style={{ width: `${scrollProgress}%` }}
-      />
+    <div className="relative min-h-[100dvh] bg-[#090a0c] text-[#e4e7eb] font-sans selection:bg-[#ff2a2a] selection:text-white">
+      {/* CRT Scanline Overlay */}
+      <div className="crt-overlay fixed inset-0 z-50 pointer-events-none opacity-40" />
 
-      {/* Header — Transparan & Membaur Halus di Atas Hero */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-background/30 border-b border-border/10 transition-colors">
-        <div className="mx-auto max-w-6xl px-6 flex items-center justify-between py-4">
-          <a href="#beranda" className="text-3xl font-extrabold tracking-tighter text-gradient transition-transform hover:scale-105">AR</a>
-          <nav className="hidden gap-1 text-sm md:flex">
-            {nav.map((n, i) => (
+      {/* Top Telemetry Diagnostic Bar */}
+      <div className="border-b border-[#222733] bg-[#0c0d10] px-4 py-1.5 font-mono text-[11px] text-[#818a99] flex flex-wrap justify-between items-center z-40 relative">
+        <div className="flex items-center gap-4">
+          <span className="flex items-center gap-1.5 text-[#e4e7eb] font-bold">
+            <span className="inline-block h-2 w-2 bg-[#39e53d] animate-pulse" />
+            SYS_ONLINE // UNIT-AR-01
+          </span>
+          <span className="hidden sm:inline text-[#333a4d]">|</span>
+          <span className="hidden sm:inline">LOC: YOGYAKARTA, ID (UTDI / KWaS)</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <span className="hidden md:inline font-mono">{timestamp || "INITIALIZING..."}</span>
+          <span className="text-[#333a4d]">|</span>
+          <span className="text-[#ff2a2a] font-bold">MODE: INDUSTRIAL_BRUTALISM</span>
+        </div>
+      </div>
+
+      {/* Primary Sticky Header */}
+      <header className="sticky top-0 z-30 border-b border-[#222733] bg-[#090a0c]/95 backdrop-blur-none px-4 py-3">
+        <div className="mx-auto max-w-7xl flex items-center justify-between">
+          <a
+            href="#telemetry"
+            className="flex items-center gap-2 font-mono text-lg font-black tracking-tighter text-[#e4e7eb] hover:text-[#ff2a2a] transition-colors"
+          >
+            <span className="bg-[#ff2a2a] text-black px-1.5 py-0.5 text-xs font-black">AR</span>
+            <span>ARRAFI.SYS</span>
+          </a>
+
+          <nav className="hidden lg:flex items-center gap-1 font-mono text-xs">
+            {navigation.map((item) => (
               <a
-                key={n}
-                href={`#${n.toLowerCase()}`}
-                className={`rounded-full px-4 py-1.5 transition-all duration-200 ${i === 0 ? "glass" : "text-muted-foreground hover:text-foreground hover:bg-secondary/40"}`}
+                key={item.id}
+                href={`#${item.id}`}
+                className="px-3 py-1 text-[#818a99] hover:text-[#e4e7eb] hover:bg-[#14171d] border border-transparent hover:border-[#222733] transition-all"
               >
-                {n}
+                {item.label}
               </a>
             ))}
           </nav>
-          <a href="#kontak" className="btn-outline flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all hover:scale-105 active:scale-95">
-            Mari Terhubung <ArrowRight size={14} />
+
+          <a href="#comms" className="brutal-btn text-xs py-1.5 px-3">
+            INIT_CONTACT &gt;&gt;
           </a>
         </div>
       </header>
 
-      {/* Hero Section — Aliran Alami Tanpa Garis Kaku */}
-      <section id="beranda" className="relative isolate overflow-hidden min-h-[82vh] flex items-center -mt-[69px] pt-[69px]">
-        {/* Gambar Latar dengan Soft Mask & Bleed */}
-        <img
-          src={hero}
-          alt="Workspace developer di malam hari"
-          width={1920}
-          height={1080}
-          className="absolute inset-0 -z-30 h-full w-full object-cover object-[65%_center] md:object-[80%_center]"
-        />
+      <main className="mx-auto max-w-7xl px-4 py-8 space-y-16">
+        {/* HERO SECTION // MISSION TELEMETRY */}
+        <section id="telemetry" className="border border-[#222733] bg-[#0f1115]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-[#222733]">
+            {/* Left Telemetry Spec */}
+            <div className="lg:col-span-8 p-6 md:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#222733]">
+              <div>
+                <div className="flex items-center gap-2 mb-4 font-mono text-xs text-[#818a99]">
+                  <span className="border border-[#ff2a2a] text-[#ff2a2a] px-2 py-0.5 font-bold">
+                    SPEC_V3.8
+                  </span>
+                  <span>SECURITY_CLEARANCE: OPEN</span>
+                </div>
 
-        {/* Gradasi Lembut Menghilangkan Batas Kaku Atas & Bawah */}
-        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-40 -z-10 bg-gradient-to-b from-background via-background/60 to-transparent pointer-events-none" />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-background via-background/90 to-background/25 pointer-events-none" />
-        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-48 -z-10 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
-        <div aria-hidden="true" className="absolute -bottom-16 left-1/2 -z-10 h-44 w-3/4 max-w-4xl rounded-full bg-accent/10 blur-3xl pointer-events-none animate-pulse-glow" />
-        
-        <div className="mx-auto w-full max-w-6xl px-6 py-16 md:py-24 relative">
-          <div data-reveal className="max-w-2xl">
-            <span className="glass inline-flex w-fit items-center gap-2 rounded-full px-3 py-1 text-xs font-medium">
-              <span className="h-2 w-2 rounded-full bg-success animate-pulse" />
-              Available for Opportunities
-            </span>
-            <h1 className="mt-5 text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl">
-              Building Secure Digital <span className="text-gradient">Experiences.</span>
-            </h1>
-            <p className="mt-5 max-w-lg text-sm sm:text-base text-muted-foreground leading-relaxed">
-              Mahasiswa Sistem Informasi Universitas Teknologi Digital Indonesia (UTDI) &amp; Full-Stack Developer Intern di CV Karya Wahana Sentosa. Berfokus pada rekayasa web modern, keamanan aplikasi, dan otomatisasi berbasis AI.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-4">
-              <a href="#proyek" className="btn-primary flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-all hover:scale-105 active:scale-95">
-                Jelajahi Proyek <ArrowRight size={16} />
-              </a>
-              <a href="/CV_Arrafi_Nur_Hafiz.pdf" target="_blank" rel="noopener noreferrer" className="btn-outline flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-all hover:scale-105 active:scale-95">
-                Lihat CV <ExternalLink size={15} />
-              </a>
-            </div>
-            <div className="mt-7 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-              <span>Terhubung di:</span>
-              {socials.map(({ icon: Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  aria-label={label}
-                  title={label}
-                  className="glass grid h-9 w-9 place-items-center transition-all duration-200 hover:scale-110 hover:text-accent hover:border-accent/40"
-                >
-                  <Icon size={16} />
+                <h1 className="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tighter text-[#e4e7eb] leading-[0.9]">
+                  SECURE CODE.
+                  <br />
+                  <span className="text-[#ff2a2a]">HARDENED</span> SYSTEMS.
+                  <br />
+                  AI MULTI-AGENT.
+                </h1>
+
+                <p className="mt-6 max-w-2xl text-sm sm:text-base text-[#818a99] leading-relaxed">
+                  Full-Stack Developer Intern di <strong className="text-[#e4e7eb]">CV Karya Wahana Sentosa (KWaS)</strong> &amp; Mahasiswa Sistem Informasi <strong className="text-[#e4e7eb]">UTDI</strong>. Mengembangkan arsitektur aplikasi tangguh, Zero-Knowledge cryptographic privacy, dan otomasi AI swarm tanpa kompromi performa.
+                </p>
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href="#projects" className="brutal-btn-primary">
+                  [ 01 // INSPECT_DEPLOYMENTS ]
                 </a>
-              ))}
-            </div>
-          </div>
-          <p className="absolute top-1/2 -translate-y-1/2 right-6 md:right-12 lg:right-16 hidden font-script text-2xl md:text-3xl leading-tight text-muted-foreground/90 md:block select-none drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] animate-float-script">
-            Build<br />
-            Learn<br />
-            Share<br />
-            <span className="text-accent font-semibold">Make an Impact</span>
-          </p>
-        </div>
-      </section>
-
-      {/* Konten Utama — Mengalir Lembut Menjembatani Hero */}
-      <div className="mx-auto max-w-6xl px-6 relative z-10 -mt-6 sm:-mt-10">
-        {/* Overview Cards — Floating Halus di Atas Transisi Bawah */}
-        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          [Code2, "Full-Stack Web", "Frontend modern React & Next.js, backend REST API, serta basis data relasional terstruktur."],
-          [ShieldCheck, "Application Security", "Penerapan fundamental AppSec, Zero-Knowledge Proof (Semaphore), dan RBAC."],
-          [Bot, "AI & Otomasi", "Pengembangan multi-agent AI swarm, Decision Support System (TOPSIS), dan automasi."],
-          [Terminal, "Linux & DevOps", "Workflow Linux harian, Docker & Docker Compose, server setup, dan deployment."],
-        ].map(([Icon, title, desc]: any, i: number) => (
-          <div
-            key={title}
-            data-reveal
-            style={{ transitionDelay: `${i * 80}ms` }}
-            className="glass flex gap-4 p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-[var(--shadow-glow)]"
-          >
-            <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-secondary text-accent transition-transform duration-300 group-hover:scale-110">
-              <Icon size={22} />
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold">{title}</h3>
-              <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{desc}</p>
-            </div>
-          </div>
-        ))}
-      </section>
-
-      {/* Tentang Saya Section */}
-      <section id="tentang" className="grid gap-6 py-16 lg:grid-cols-[1.2fr_1.1fr_1.1fr]">
-        <div data-reveal style={{ transitionDelay: "0ms" }} className="flex flex-col justify-between">
-          <div>
-            <Label n="01" t="TENTANG SAYA" />
-            <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">
-              Hai, saya<br /><span className="text-gradient">Arrafi Nur Hafiz</span> 👋
-            </h2>
-            <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-              Mahasiswa Sistem Informasi di Universitas Teknologi Digital Indonesia (UTDI) yang saat ini aktif sebagai Full-Stack Developer Intern di CV Karya Wahana Sentosa (KWaS). Berpengalaman merancang dan membangun aplikasi web end-to-end, mulai dari antarmuka pengguna responsif, backend REST API, hingga struktur basis data relasional.
-            </p>
-            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-              Saya memiliki minat mendalam pada keamanan aplikasi, sistem otomasi kecerdasan buatan, dan gemar membagikan wawasan teknis melalui konten edukasi digital.
-            </p>
-          </div>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href="/CV_Arrafi_Nur_Hafiz.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all hover:scale-105 active:scale-95"
-            >
-              Unduh CV <ArrowRight size={14} />
-            </a>
-            <a
-              href="https://porto.rapydev.my.id"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all hover:scale-105 active:scale-95"
-            >
-              Portofolio Lengkap <ExternalLink size={14} />
-            </a>
-          </div>
-        </div>
-
-        {/* Foto Potret Bersih — Bebas Halangan Teks */}
-        <div data-reveal style={{ transitionDelay: "120ms" }} className="relative min-h-[380px] overflow-hidden rounded-2xl border border-accent/20 bg-secondary/30 shadow-xl group">
-          <img
-            src={portrait}
-            alt="Arrafi Nur Hafiz"
-            loading="lazy"
-            width={1086}
-            height={1090}
-            className="h-full w-full object-cover object-[center_15%] transition-transform duration-700 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent pointer-events-none" />
-        </div>
-
-        {/* Kolom Kanan: Kutipan + Status Info */}
-        <div data-reveal style={{ transitionDelay: "240ms" }} className="flex flex-col justify-between gap-4">
-          <div className="glass relative rounded-2xl border border-accent/20 p-5 shadow-lg transition-all duration-300 hover:border-accent/40">
-            <div aria-hidden="true" className="absolute inset-y-0 left-0 w-1 rounded-l-2xl bg-accent" />
-            <Quote aria-hidden="true" size={32} strokeWidth={1.5} className="text-accent mb-2" />
-            <blockquote className="text-base font-semibold leading-relaxed sm:text-lg">
-              <p>
-                Selalu penasaran,<br />
-                selalu belajar,<br />
-                <span className="text-muted-foreground">mengubah ide menjadi</span>{" "}
-                <span className="text-accent">dampak nyata.</span>
-              </p>
-            </blockquote>
-            <div className="mt-4 flex items-center justify-between border-t border-accent/20 pt-3">
-              <p className="font-script text-2xl leading-tight text-foreground">Arrafi Nur Hafiz</p>
-              <div aria-hidden="true" className="flex gap-1.5">
-                <span className="h-1 w-6 rounded-full bg-accent" />
-                <span className="h-1 w-1.5 rounded-full bg-accent/40" />
-                <span className="h-1 w-1.5 rounded-full bg-accent/20" />
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-2.5">
-            <div className="glass flex items-center gap-3 p-3.5 text-xs sm:text-sm transition-all duration-200 hover:border-accent/40">
-              <GraduationCap className="text-accent shrink-0" size={20} />
-              <div>
-                <span className="font-semibold text-foreground">Universitas Teknologi Digital Indonesia</span>
-                <br />
-                <span className="text-xs text-muted-foreground">Sistem Informasi (S1) · 2024 – Sekarang</span>
-              </div>
-            </div>
-            <div className="glass flex items-center gap-3 p-3.5 text-xs sm:text-sm transition-all duration-200 hover:border-accent/40">
-              <Briefcase className="text-accent shrink-0" size={18} />
-              <div>
-                <span className="font-semibold text-foreground">CV Karya Wahana Sentosa (KWaS)</span>
-                <br />
-                <span className="text-xs text-muted-foreground">Full-Stack Developer Intern</span>
-              </div>
-            </div>
-            <div className="glass flex items-center gap-3 p-3.5 text-xs sm:text-sm transition-all duration-200 hover:border-accent/40">
-              <MapPin size={18} className="text-accent shrink-0" />
-              <span>Yogyakarta, Indonesia</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Keahlian / Tech Stack */}
-      <section id="keahlian" className="grid gap-4 lg:grid-cols-[1fr_1fr_1fr_0.65fr]">
-        <div data-reveal className="lg:col-span-4">
-          <Label n="02" t="KEAHLIAN" />
-          <h2 className="mt-1 text-3xl font-bold">Tech Stack &amp; Kompetensi</h2>
-        </div>
-        {[
-          ["Frontend", [[Atom, "React"], [Boxes, "Next.js"], [FileCode2, "TypeScript"], [Code2, "JavaScript"]]],
-          ["Backend", [[Server, "Node.js"], [Terminal, "Express.js"], [Code2, "PHP & Laravel"], [Code2, "FastAPI"]]],
-          ["Database & Tools", [[Database, "MySQL & PG"], [Container, "Docker"], [Terminal, "Linux"], [GitBranch, "Git & GitHub"]]],
-        ].map(([title, items]: any, idx: number) => (
-          <div
-            key={title}
-            data-reveal
-            style={{ transitionDelay: `${idx * 80}ms` }}
-            className="glass p-5 transition-all duration-300 hover:border-accent/40 hover:shadow-[var(--shadow-glow)] hover:-translate-y-1"
-          >
-            <h3 className="text-sm font-semibold">{title}</h3>
-            <div className="mt-3 grid grid-cols-4 gap-2">
-              {items.map(([Icon, name]: any) => (
-                <div key={name} className="group flex flex-col items-center gap-1.5 text-center text-xs text-muted-foreground transition-all duration-200 hover:-translate-y-1 hover:text-accent">
-                  <Icon className="text-accent transition-transform duration-200 group-hover:scale-115" size={20} />
-                  <span className="truncate max-w-full">{name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-        <pre data-reveal style={{ transitionDelay: "240ms" }} className="glass p-4 font-mono text-[11px] text-accent flex flex-col justify-center transition-all duration-300 hover:border-accent/40 hover:shadow-[var(--shadow-glow)]">{`const rafi = {
-  role: "Full-Stack Dev",
-  campus: "UTDI Yogyakarta",
-  stack: ["React", "Node", "PHP", "Docker"],
-  security: "AppSec & ZKP",
-  impact: true
-};`}</pre>
-      </section>
-
-      {/* Proyek Pilihan */}
-      <section id="proyek" className="py-16">
-        <div data-reveal className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <Label n="03" t="PROYEK PILIHAN" />
-            <h2 className="mt-1 text-3xl font-bold">Proyek Unggulan</h2>
-          </div>
-          <a
-            href="https://github.com/ArrafiNurHafiz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-accent hover:underline font-medium transition-all hover:translate-x-1"
-          >
-            Lihat Semua di GitHub <ArrowRight size={14} />
-          </a>
-        </div>
-        
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
-          {[
-            {
-              img: p1,
-              title: "Nutri-Share",
-              tags: ["Web App", "DSS", "Entropy-TOPSIS"],
-              desc: "Sistem pendukung keputusan berbasis web untuk optimalisasi distribusi makanan surplus dan foodbank dengan metode Hybrid Entropy-TOPSIS.",
-              link: "https://nutrishare.web.id",
-            },
-            {
-              img: p2,
-              title: "RUANG AMAN",
-              tags: ["Web App", "Zero-Knowledge Proof", "Semaphore"],
-              desc: "Aplikasi pelaporan perundungan anonim yang menjamin kerahasiaan identitas pelapor menggunakan kriptografi Zero-Knowledge Proof.",
-              link: "https://ruang.rapsdev.web.id",
-            },
-            {
-              img: hero,
-              title: "AutoSec-Patch",
-              tags: ["AI Multi-Agent", "Cybersecurity", "Autonomous"],
-              desc: "Adversarial Co-Evolution Multi-Agent Swarm untuk penemuan kerentanan kode otomatis dan penambalan patch keamanan secara otonom.",
-              link: "https://github.com/ArrafiNurHafiz/AutoSec-Patch",
-            },
-          ].map((item, idx: number) => (
-            <article
-              key={item.title}
-              data-reveal
-              style={{ transitionDelay: `${idx * 120}ms` }}
-              className="glass overflow-hidden transition-all duration-400 hover:shadow-[var(--shadow-glow)] hover:-translate-y-2 hover:border-accent/40 flex flex-col justify-between group"
-            >
-              <div>
-                <div className="overflow-hidden aspect-video w-full">
-                  <img src={item.img} alt={item.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-108" />
-                </div>
-                <div className="p-5">
-                  <div className="flex flex-wrap items-center gap-1.5">
-                    <h3 className="font-bold text-base group-hover:text-accent transition-colors">{item.title}</h3>
-                    {item.tags.map((tag) => (
-                      <span key={tag} className="rounded-full border border-border px-2 py-0.5 text-[10px] text-muted-foreground">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="mt-2.5 text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-              <div className="p-5 pt-0">
                 <a
-                  href={item.link}
+                  href="/CV_Arrafi_Nur_Hafiz.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-between rounded-xl border border-border/80 bg-background/50 px-4 py-2.5 text-xs font-medium text-foreground transition-all hover:border-accent hover:text-accent hover:bg-secondary/40"
+                  className="brutal-btn"
                 >
-                  <span>Buka Proyek</span>
-                  <ExternalLink size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ExternalLink size={13} />
+                  [ SPEC_DOCS // CV.PDF ]
                 </a>
               </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* Pengalaman & Perjalanan */}
-      <section id="pengalaman">
-        <div data-reveal className="flex items-end justify-between">
-          <div>
-            <Label n="04" t="PENGALAMAN &amp; PERJALANAN" />
-            <h2 className="mt-1 text-3xl font-bold">Perjalanan &amp; Karier</h2>
-          </div>
-        </div>
-        <div className="mt-6 grid gap-6 border-t border-border pt-6 md:grid-cols-4">
-          {[
-            ["Agu 2026 – Sekarang", "Full-Stack Developer Intern", "CV Karya Wahana Sentosa (KWaS)", "Mengembangkan sistem pendukung Material Requirements Planning (MRP), frontend, backend, integrasi modul, dan transfer pengetahuan teknis."],
-            ["2024 – Sekarang", "S1 Sistem Informasi", "Universitas Teknologi Digital Indonesia", "Mendalami rekayasa perangkat lunak, sistem basis data, algoritma pendukung keputusan, dan keamanan siber."],
-            ["2025 – Sekarang", "Tech Content Creator", "YouTube @RapyTech & TikTok", "Membagikan konten edukasi, tips Linux, web development, dan implementasi otomasi AI untuk komunitas teknologi."],
-            ["Visi Berkelanjutan", "Continuous Learning", "Web, Security & AI", "Terus berevolusi menciptakan perangkat lunak aman, andal, dan memberikan dampak nyata bagi masyarakat luas."],
-          ].map(([period, role, place, detail], idx: number) => (
-            <div
-              key={role}
-              data-reveal
-              style={{ transitionDelay: `${idx * 100}ms` }}
-              className="relative transition-transform duration-300 hover:-translate-y-1"
-            >
-              <span className="absolute -top-[31px] h-3 w-3 rounded-full bg-primary shadow-[var(--shadow-glow)] animate-pulse" />
-              <p className="text-xs font-mono font-semibold text-accent">{period}</p>
-              <h3 className="mt-1 text-sm font-bold text-foreground">{role}</h3>
-              <p className="text-xs font-medium text-muted-foreground">{place}</p>
-              <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{detail}</p>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* Prestasi & Penghargaan */}
-      <section id="prestasi" className="py-16">
-        <div data-reveal>
-          <Label n="05" t="PRESTASI &amp; PENGHARGAAN" />
-          <h2 className="mt-1 text-3xl font-bold">Kompetisi &amp; Pencapaian</h2>
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            {
-              year: "2026",
-              title: "COMPSPHERE 12 — HACKSPHERE 2026",
-              role: "Top 30 Finalist",
-              desc: "International Web3 Hackathon (compsphere12.devpost.com).",
-            },
-            {
-              year: "Oktober 2026",
-              title: "GAYATAMA 2026",
-              role: "Finalis Kompetisi Web",
-              desc: "International Web Technology Competition di Universitas Negeri Surabaya. Tim 'Bismillah Menang'.",
-            },
-            {
-              year: "Oktober 2026",
-              title: "IEEE YESIST12 2026",
-              role: "Finalist",
-              desc: "Universitas Nusa Mandiri, IEEE Indonesia Section, & iExplore Foundation.",
-            },
-            {
-              year: "Juni 2026",
-              title: "Indonesia–Singapore Essay 2026",
-              role: "Peringkat 100 / 314",
-              desc: "Seamplified Media Pte. Ltd. bersama PT. Mentor Karya Remaja.",
-            },
-          ].map((item, idx: number) => (
-            <div
-              key={item.title}
-              data-reveal
-              style={{ transitionDelay: `${idx * 90}ms` }}
-              className="glass p-5 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-[var(--shadow-glow)]"
-            >
+            {/* Right Telemetry Terminal Matrix */}
+            <div className="lg:col-span-4 p-6 bg-[#0a0b0e] flex flex-col justify-between font-mono text-xs">
               <div>
-                <div className="flex items-center justify-between text-xs font-mono text-accent">
-                  <span>{item.year}</span>
-                  <Award size={16} />
+                <div className="border-b border-[#222733] pb-2 mb-4 flex justify-between items-center text-[#818a99]">
+                  <span>// RUNTIME_MANIFEST</span>
+                  <span className="text-[#39e53d]">STATUS_OK</span>
                 </div>
-                <h3 className="mt-2 text-sm font-bold text-foreground">{item.title}</h3>
-                <p className="mt-1 inline-block rounded-md bg-secondary/80 px-2 py-0.5 text-[11px] font-semibold text-accent">
-                  {item.role}
-                </p>
-                <p className="mt-2.5 text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                <dl className="space-y-3">
+                  <div>
+                    <dt className="text-[#818a99]">OPERATOR_ID:</dt>
+                    <dd className="font-bold text-[#e4e7eb]">ARRAFI NUR HAFIZ</dd>
+                  </div>
+                  <div>
+                    <dt className="text-[#818a99]">PRIMARY_DISCIPLINE:</dt>
+                    <dd className="text-[#ff2a2a]">FULL-STACK &amp; APP_SECURITY</dd>
+                  </div>
+                  <div>
+                    <dt className="text-[#818a99]">ACADEMIC_BASE:</dt>
+                    <dd className="text-[#e4e7eb]">UNIVERSITAS TEKNOLOGI DIGITAL INDONESIA</dd>
+                  </div>
+                  <div>
+                    <dt className="text-[#818a99]">CURRENT_POST:</dt>
+                    <dd className="text-[#e4e7eb]">DEV INTERN @ CV KARYA WAHANA SENTOSA</dd>
+                  </div>
+                  <div>
+                    <dt className="text-[#818a99]">KEY_PRIMITIVES:</dt>
+                    <dd className="text-[#818a99]">ZKP (SEMAPHORE), TOPSIS, DOCKER, REST</dd>
+                  </div>
+                </dl>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-[#222733] text-[11px] text-[#818a99]">
+                <span>HASH: 8f4a1c0d9e... verified</span>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
 
-      {/* Kontak Section */}
-      <section id="kontak" data-reveal className="glass grid items-center gap-8 p-8 md:grid-cols-[1.2fr_auto_1fr] rounded-3xl border border-accent/20 transition-all duration-300 hover:border-accent/40 hover:shadow-[var(--shadow-glow)]">
-        <div>
-          <h2 className="text-3xl font-bold">Mari Berkolaborasi</h2>
-          <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-            Terbuka untuk diskusi proyek rekayasa web, eksplorasi keamanan aplikasi, peluang kerja, maupun kolaborasi konten teknologi.
-          </p>
-          <div className="mt-4 flex flex-col gap-2 text-xs sm:text-sm text-muted-foreground font-mono">
-            <div className="flex items-center gap-2">
-              <Mail size={16} className="text-accent shrink-0" />
-              <a href="mailto:arrafinur3@gmail.com" className="hover:text-accent transition-colors">arrafinur3@gmail.com</a>
+            {/* Sub-strip Barcode / Metrics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#222733] font-mono text-xs">
+            <div className="p-4 bg-[#0c0e12]">
+              <span className="text-[#818a99] block text-[10px]">PRODUCTION ARCH</span>
+              <span className="font-bold text-[#e4e7eb]">REACT // NEXT.JS // NODE</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Phone size={16} className="text-accent shrink-0" />
-              <a href="https://wa.me/6285927274835" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">+62 859-2727-4835 (WhatsApp)</a>
+            <div className="p-4 bg-[#0c0e12]">
+              <span className="text-[#818a99] block text-[10px]">SECURITY DEFENSE</span>
+              <span className="font-bold text-[#e4e7eb]">RBAC // ZKP // APPSEC</span>
             </div>
-            <div className="flex items-center gap-2">
-              <MapPin size={16} className="text-accent shrink-0" />
-              <span>Yogyakarta, Indonesia</span>
+            <div className="p-4 bg-[#0c0e12]">
+              <span className="text-[#818a99] block text-[10px]">AI INFRA</span>
+              <span className="font-bold text-[#e4e7eb]">MULTI-AGENT // SWARM</span>
+            </div>
+            <div className="p-4 bg-[#0c0e12]">
+              <span className="text-[#818a99] block text-[10px]">BASE ENVIRONMENT</span>
+              <span className="font-bold text-[#39e53d]">LINUX // CONTAINERIZED</span>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className="flex flex-col sm:flex-row md:flex-col gap-3">
-          <a
-            href="mailto:arrafinur3@gmail.com"
-            className="btn-primary flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold transition-all hover:scale-105 active:scale-95"
-          >
-            Kirim Email <ArrowRight size={16} />
-          </a>
-          <a
-            href="https://wa.me/6285927274835"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold transition-all hover:scale-105 active:scale-95"
-          >
-            WhatsApp <ExternalLink size={15} />
-          </a>
-          <a
-            href="/CV_Arrafi_Nur_Hafiz.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold transition-all hover:scale-105 active:scale-95"
-          >
-            Unduh CV (PDF) <ExternalLink size={15} />
-          </a>
-        </div>
+        {/* SECTION 01 // PROFILE & DOSSIER */}
+        <section id="profile" data-reveal>
+          <HeaderBlock code="01" title="OPERATOR DOSSIER & IDENTITY" tag="BIO_DATA" />
 
-        <div className="text-left md:text-right border-t md:border-t-0 md:border-l border-border/60 pt-4 md:pt-0 md:pl-6">
-          <p className="text-sm italic text-muted-foreground">
-            &quot;Teknologi akan lebih bermakna ketika digunakan untuk membantu lebih banyak orang.&quot;
-          </p>
-          <p className="mt-2 font-script text-2xl text-accent">Arrafi Nur Hafiz</p>
-          <p className="text-xs text-muted-foreground mt-1">Full-Stack Developer &amp; Security Enthusiast</p>
-        </div>
-      </section>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            {/* Visual Target Container with Technical Crosshairs */}
+            <div className="lg:col-span-4 border border-[#222733] bg-[#0c0d10] p-4 flex flex-col justify-between crosshair-corner">
+              <div className="border border-[#222733] relative overflow-hidden aspect-[4/5] bg-black">
+                <img
+                  src={portrait}
+                  alt="Operator Arrafi Nur Hafiz"
+                  className="h-full w-full object-cover grayscale contrast-125 brightness-90 hover:grayscale-0 transition-all duration-300"
+                />
+                <div className="absolute top-2 left-2 font-mono text-[10px] bg-black/80 px-1.5 py-0.5 border border-[#333a4d] text-[#ff2a2a]">
+                  ID_CAM // OPERATOR
+                </div>
+              </div>
+              <div className="mt-3 font-mono text-[11px] text-[#818a99] flex justify-between">
+                <span>INDEX: P-0881</span>
+                <span>STATUS: VERIFIED</span>
+              </div>
+            </div>
 
-      {/* Footer */}
-      <footer className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border py-6 text-sm text-muted-foreground">
-        <div className="flex items-center gap-3">
-          <span className="text-3xl font-extrabold text-gradient">AR</span>
+            {/* Dossier Text Block */}
+            <div className="lg:col-span-8 border border-[#222733] bg-[#0f1115] p-6 md:p-8 flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="inline-block border border-[#ff2a2a] px-2 py-0.5 font-mono text-xs text-[#ff2a2a]">
+                  EXECUTIVE_SUMMARY
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-[#e4e7eb]">
+                  Rekayasa piranti lunak dengan ketelitian teknis, arsitektur modular, dan pertahanan berlapis.
+                </h3>
+                <p className="text-sm text-[#818a99] leading-relaxed">
+                  Aktif memimpin eksekusi teknis sebagai Full-Stack Developer Intern di CV Karya Wahana Sentosa (KWaS), berfokus pada integrasi sistem operasional MRP, backend RESTful, dan tata kelola basis data relasional. Menempuh studi formal Sistem Informasi di UTDI Yogyakarta dengan fokus riset pada algoritma optimasi, kriptografi privasi anonim, dan pertahanan siber.
+                </p>
+                <p className="text-sm text-[#818a99] leading-relaxed">
+                  Selain pembangunan kode internal, aktif membagikan eksplorasi Linux sistemik, otomasi AI swarm, dan rekayasa web melalui kanal digital untuk membentuk ekosistem teknis yang terdidik dan berdampak nyata.
+                </p>
+              </div>
+
+              <div className="mt-6 pt-6 border-t border-[#222733] grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs">
+                <div className="border border-[#222733] p-3 bg-[#0c0d10]">
+                  <span className="text-[#818a99] block text-[10px]">CAMPUS</span>
+                  <span className="font-bold text-[#e4e7eb]">UTDI Yogyakarta</span>
+                  <span className="text-[#818a99] block text-[10px] mt-1">SI (S1) · 2024–Pres.</span>
+                </div>
+                <div className="border border-[#222733] p-3 bg-[#0c0d10]">
+                  <span className="text-[#818a99] block text-[10px]">INDUSTRY ROLE</span>
+                  <span className="font-bold text-[#e4e7eb]">KWaS Intern</span>
+                  <span className="text-[#818a99] block text-[10px] mt-1">Full-Stack MRP Eng</span>
+                </div>
+                <div className="border border-[#222733] p-3 bg-[#0c0d10]">
+                  <span className="text-[#818a99] block text-[10px]">BASE REGION</span>
+                  <span className="font-bold text-[#e4e7eb]">Yogyakarta</span>
+                  <span className="text-[#818a99] block text-[10px] mt-1">GMT+7 / Special Region</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 02 // CAPABILITIES & MODULES */}
+        <section id="capabilities" data-reveal>
+          <HeaderBlock code="02" title="TECHNICAL CAPABILITIES & SUBSYSTEMS" tag="STACK_MATRIX" />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-1 bg-[#222733] border border-[#222733]">
+            {/* Front-End Subsystem */}
+            <div className="bg-[#0f1115] p-6 flex flex-col justify-between">
+              <div>
+                <div className="flex justify-between items-center font-mono text-xs text-[#818a99] pb-3 border-b border-[#222733]">
+                  <span>[ MOD_01 ]</span>
+                  <Code2 size={16} className="text-[#ff2a2a]" />
+                </div>
+                <h3 className="mt-3 text-lg font-bold uppercase text-[#e4e7eb]">Client Interface &amp; Web</h3>
+                <p className="mt-2 text-xs text-[#818a99] leading-relaxed">
+                  Pengembangan antarmuka responsif performa tinggi, validasi skema ketat, state terisolasi, dan arsitektur komponen modular.
+                </p>
+                <div className="mt-4 space-y-2 font-mono text-xs">
+                  {["React 19 & Next.js", "TypeScript (Strict)", "Tailwind CSS Architecture", "TanStack Suite"].map((item) => (
+                    <div key={item} className="flex items-center gap-2 text-[#d2d7df]">
+                      <span className="text-[#ff2a2a]">&gt;</span>
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-6 pt-3 border-t border-[#222733] font-mono text-[10px] text-[#818a99]">
+                TARGET: ZERO-RUNTIME-DEFECT
+              </div>
+            </div>
+
+            {/* Back-End & Data Subsystem */}
+            <div className="bg-[#0f1115] p-6 flex flex-col justify-between">
+              <div>
+                <div className="flex justify-between items-center font-mono text-xs text-[#818a99] pb-3 border-b border-[#222733]">
+                  <span>[ MOD_02 ]</span>
+                  <Server size={16} className="text-[#ff2a2a]" />
+                </div>
+                <h3 className="mt-3 text-lg font-bold uppercase text-[#e4e7eb]">Backend &amp; Relational DB</h3>
+                <p className="mt-2 text-xs text-[#818a99] leading-relaxed">
+                  Perancangan API RESTful deterministik, integritas transaksi data relasional, pengolahan otentikasi aman dan RBAC.
+                </p>
+                <div className="mt-4 space-y-2 font-mono text-xs">
+                  {["Node.js & Express.js", "PHP & Laravel Framework", "MySQL & PostgreSQL", "FastAPI (Python)"].map((item) => (
+                    <div key={item} className="flex items-center gap-2 text-[#d2d7df]">
+                      <span className="text-[#ff2a2a]">&gt;</span>
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-6 pt-3 border-t border-[#222733] font-mono text-[10px] text-[#818a99]">
+                TARGET: ATOMIC_PERSISTENCE
+              </div>
+            </div>
+
+            {/* Security, AI & DevOps */}
+            <div className="bg-[#0f1115] p-6 flex flex-col justify-between">
+              <div>
+                <div className="flex justify-between items-center font-mono text-xs text-[#818a99] pb-3 border-b border-[#222733]">
+                  <span>[ MOD_03 ]</span>
+                  <ShieldCheck size={16} className="text-[#ff2a2a]" />
+                </div>
+                <h3 className="mt-3 text-lg font-bold uppercase text-[#e4e7eb]">AppSec, AI &amp; Infrastructure</h3>
+                <p className="mt-2 text-xs text-[#818a99] leading-relaxed">
+                  Penerapan kriptografi Zero-Knowledge (ZKP), simulasi patching otonom multi-agent AI, serta containerisasi lingkungan Linux.
+                </p>
+                <div className="mt-4 space-y-2 font-mono text-xs">
+                  {["ZKP Privacy (Semaphore)", "Autonomous Swarm Agents", "Docker & Docker Compose", "Linux Core Workflows"].map((item) => (
+                    <div key={item} className="flex items-center gap-2 text-[#d2d7df]">
+                      <span className="text-[#ff2a2a]">&gt;</span>
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-6 pt-3 border-t border-[#222733] font-mono text-[10px] text-[#818a99]">
+                TARGET: AUDITABLE_HARDENING
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 03 // DEPLOYMENTS & PROJECTS */}
+        <section id="projects" data-reveal>
+          <HeaderBlock code="03" title="TACTICAL PROJECT DEPLOYMENTS" tag="CODE_ARTIFACTS" />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                id: "DEP-01",
+                img: p1,
+                title: "NUTRI-SHARE",
+                domain: "DSS // LOGISTICS",
+                tags: ["REACT", "TOPSIS", "ENTROPY"],
+                desc: "Sistem pendukung keputusan komputasi distribusi makanan surplus dan foodbank menggunakan normalisasi Entropy-TOPSIS terintegrasi.",
+                link: "https://nutrishare.web.id",
+              },
+              {
+                id: "DEP-02",
+                img: p2,
+                title: "RUANG AMAN",
+                domain: "APPSEC // PRIVACY",
+                tags: ["ZKP", "SEMAPHORE", "CRYPTO"],
+                desc: "Aplikasi whistleblowing pelaporan perundungan anonim dengan verifikasi kriptografi Zero-Knowledge Proof tanpa kebocoran identitas pelapor.",
+                link: "https://ruang.rapsdev.web.id",
+              },
+              {
+                id: "DEP-03",
+                img: hero,
+                title: "AUTOSEC-PATCH",
+                domain: "AI // OFFENSIVE SEC",
+                tags: ["SWARM", "AUTONOMOUS", "CVE"],
+                desc: "Adversarial Co-Evolution Multi-Agent Swarm untuk penemuan celah keamanan kode otomatis dan pengujian patch defensif.",
+                link: "https://github.com/ArrafiNurHafiz/AutoSec-Patch",
+              },
+            ].map((p) => (
+              <article
+                key={p.id}
+                className="border border-[#222733] bg-[#0f1115] flex flex-col justify-between hover:border-[#ff2a2a] transition-all"
+              >
+                <div>
+                  <div className="border-b border-[#222733] bg-[#0c0e12] px-3 py-1.5 font-mono text-[11px] text-[#818a99] flex justify-between">
+                    <span>UNIT :: {p.id}</span>
+                    <span className="text-[#ff2a2a]">{p.domain}</span>
+                  </div>
+
+                  <div className="border-b border-[#222733] aspect-video w-full overflow-hidden bg-black relative">
+                    <img
+                      src={p.img}
+                      alt={p.title}
+                      className="h-full w-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-300"
+                    />
+                  </div>
+
+                  <div className="p-5">
+                    <h3 className="font-mono text-lg font-black uppercase text-[#e4e7eb]">
+                      {p.title}
+                    </h3>
+                    <p className="mt-2 text-xs text-[#818a99] leading-relaxed">{p.desc}</p>
+                    <div className="mt-4 flex flex-wrap gap-1 font-mono text-[10px]">
+                      {p.tags.map((t) => (
+                        <span key={t} className="border border-[#222733] bg-[#14171d] px-2 py-0.5 text-[#d2d7df]">
+                          [{t}]
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-5 pt-0">
+                  <a
+                    href={p.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="brutal-btn w-full justify-between"
+                  >
+                    <span>LAUNCH_TARGET</span>
+                    <ExternalLink size={12} />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* SECTION 04 // TIMELINE & ROLES */}
+        <section id="timeline" data-reveal>
+          <HeaderBlock code="04" title="OPERATIONAL TIMELINE" tag="SERVICE_HISTORY" />
+
+          <div className="border border-[#222733] bg-[#0f1115] divide-y divide-[#222733]">
+            {[
+              {
+                period: "2026.08 — PRESENT",
+                role: "FULL-STACK DEVELOPER INTERN",
+                unit: "CV KARYA WAHANA SENTOSA (KWAS)",
+                duty: "Pembangunan modul Material Requirements Planning (MRP), integrasi flow frontend-backend, tata kelola skema data, serta transfer pengetahuan teknis.",
+              },
+              {
+                period: "2024.09 — PRESENT",
+                role: "STUDENT & RESEARCHER // S1 SISTEM INFORMASI",
+                unit: "UNIVERSITAS TEKNOLOGI DIGITAL INDONESIA",
+                duty: "Kajian komputasi rekayasa perangkat lunak, sistem pendukung keputusan multikriteria, kriptografi terapan, dan keamanan jaringan.",
+              },
+              {
+                period: "2025.01 — PRESENT",
+                role: "TECHNICAL EDUCATOR & CREATOR",
+                unit: "YOUTUBE @RAPYTECH // TIKTOK",
+                duty: "Diseminasi materi arsitektur Linux, automasi agentik AI, tutorial web engineering, dan kesadaran AppSec untuk publik teknologi.",
+              },
+            ].map((t) => (
+              <div key={t.role} className="p-5 md:p-6 grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
+                <div className="md:col-span-3 font-mono text-xs text-[#ff2a2a] font-bold">
+                  {t.period}
+                </div>
+                <div className="md:col-span-4">
+                  <h3 className="font-bold uppercase text-sm text-[#e4e7eb]">{t.role}</h3>
+                  <p className="font-mono text-xs text-[#818a99] mt-0.5">{t.unit}</p>
+                </div>
+                <div className="md:col-span-5 text-xs text-[#818a99] leading-relaxed">
+                  {t.duty}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SECTION 05 // CITATIONS & COMPETITION */}
+        <section id="awards" data-reveal>
+          <HeaderBlock code="05" title="VERIFIED CITATIONS &amp; HONORS" tag="COMPETITIONS" />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                year: "2026",
+                title: "COMPSPHERE 12 // HACKSPHERE",
+                rank: "TOP 30 FINALIST",
+                org: "International Web3 Hackathon (Devpost)",
+              },
+              {
+                year: "2026",
+                title: "GAYATAMA 2026",
+                rank: "FINALIS WEB TECHNOLOGY",
+                org: "Universitas Negeri Surabaya",
+              },
+              {
+                year: "2026",
+                title: "IEEE YESIST12",
+                rank: "INTERNATIONAL FINALIST",
+                org: "IEEE Indonesia Section & UNM",
+              },
+              {
+                year: "2026",
+                title: "INDO-SG ESSAY FORUM",
+                rank: "RANK 100 / 314",
+                org: "Seamplified Media Pte. Ltd.",
+              },
+            ].map((a) => (
+              <div
+                key={a.title}
+                className="border border-[#222733] bg-[#0f1115] p-5 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex justify-between items-center font-mono text-xs text-[#ff2a2a] pb-2 border-b border-[#222733]">
+                    <span>{a.year}</span>
+                    <Award size={14} />
+                  </div>
+                  <h3 className="mt-3 font-bold text-sm uppercase text-[#e4e7eb]">{a.title}</h3>
+                  <div className="mt-2 inline-block border border-[#ff2a2a] bg-[#14171d] px-2 py-0.5 font-mono text-[10px] text-[#ff2a2a] font-bold">
+                    {a.rank}
+                  </div>
+                </div>
+                <p className="mt-3 text-[11px] text-[#818a99]">{a.org}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SECTION 06 // COMMS DISPATCH */}
+        <section id="comms" data-reveal>
+          <HeaderBlock code="06" title="COMMUNICATIONS &amp; DISPATCH" tag="DIRECT_CHANNEL" />
+
+          <div className="border border-[#222733] bg-[#0f1115] p-6 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-7 space-y-4">
+              <h3 className="text-xl md:text-2xl font-black uppercase text-[#e4e7eb]">
+                Inisiasi Saluran Komunikasi Langsung
+              </h3>
+              <p className="text-xs sm:text-sm text-[#818a99] leading-relaxed">
+                Tersedia untuk rekayasa piranti lunak end-to-end, audit keamanan aplikasi web, implementasi otomasi otonom, dan kolaborasi inovasi teknis.
+              </p>
+              <div className="space-y-2 font-mono text-xs">
+                <div className="flex items-center gap-2 text-[#d2d7df]">
+                  <Mail size={14} className="text-[#ff2a2a]" />
+                  <a href="mailto:arrafinur3@gmail.com" className="hover:text-[#ff2a2a]">
+                    arrafinur3@gmail.com
+                  </a>
+                </div>
+                <div className="flex items-center gap-2 text-[#d2d7df]">
+                  <Phone size={14} className="text-[#ff2a2a]" />
+                  <a
+                    href="https://wa.me/6285927274835"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#ff2a2a]"
+                  >
+                    +62 859-2727-4835 [WHATSAPP_ENDPOINT]
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 flex flex-col gap-3 font-mono text-xs">
+              <a href="mailto:arrafinur3@gmail.com" className="brutal-btn-primary w-full text-center">
+                SEND_DISPATCH_EMAIL &gt;&gt;
+              </a>
+              <a
+                href="https://wa.me/6285927274835"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="brutal-btn w-full text-center"
+              >
+                WHATSAPP_CHANNEL &gt;&gt;
+              </a>
+              <a
+                href="/CV_Arrafi_Nur_Hafiz.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="brutal-btn w-full text-center"
+              >
+                DOWNLOAD_VERIFIED_CV.PDF &gt;&gt;
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* Industrial Footer */}
+      <footer className="border-t border-[#222733] bg-[#090a0c] px-4 py-8 mt-20 font-mono text-xs text-[#818a99]">
+        <div className="mx-auto max-w-7xl flex flex-col md:flex-row justify-between items-center gap-4">
           <div>
-            <p className="font-semibold text-foreground">Arrafi Nur Hafiz</p>
-            <p className="text-xs">Student · Developer · Creator · Cyber Enthusiast</p>
+            <span className="font-bold text-[#e4e7eb]">ARRAFI NUR HAFIZ</span> // 2026 INDUSTRIAL BRUTALISM
+            <p className="text-[10px] text-[#818a99] mt-0.5">DISCIPLINE: SWISS-GRID-TELEMETRY // NO SOFT GRADIENTS</p>
           </div>
-        </div>
 
-        <div className="flex items-center gap-3">
-          {socials.map(({ icon: Icon, label, href }) => (
-            <a
-              key={label}
-              href={href}
-              target={href.startsWith("http") ? "_blank" : undefined}
-              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-              aria-label={label}
-              title={label}
-              className="glass grid h-8 w-8 place-items-center transition-all hover:scale-110 hover:text-accent hover:border-accent/40"
-            >
-              <Icon size={15} />
-            </a>
-          ))}
-          <a
-            href="#beranda"
-            aria-label="Kembali ke atas"
-            className="grid h-8 w-8 place-items-center rounded-full border border-border hover:border-accent hover:text-accent transition-all hover:scale-110 ml-2"
-          >
-            <ArrowUp size={15} />
-          </a>
+          <div className="flex items-center gap-2">
+            {socialLinks.map(({ icon: Icon, label, href }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="border border-[#222733] bg-[#14171d] px-2.5 py-1 text-[#818a99] hover:text-[#ff2a2a] hover:border-[#ff2a2a] transition-colors"
+                title={label}
+              >
+                <span className="text-[10px] font-bold">{label}</span>
+              </a>
+            ))}
+          </div>
         </div>
       </footer>
     </div>
-  </div>
   );
 }
