@@ -16,9 +16,11 @@ import {
   ExternalLink,
   Award,
   ArrowRight,
+  Plus,
+  X,
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
-import portrait from "@/assets/portrait.jpg";
+import heroPortrait from "@/assets/hero-portrait.jpg";
 import p1 from "@/assets/p1.jpg";
 import p2 from "@/assets/p2.jpg";
 
@@ -157,7 +159,7 @@ const achievements = [
   {
     year: "2026",
     title: "COMPSPHERE 12 — HACKSPHERE",
-    role: "Top 30 Finalist",
+    role: "Highest Pitching Score",
     org: "International Web3 Hackathon (Devpost)",
   },
   {
@@ -217,10 +219,13 @@ function Crosshair({ position }: { position: "tl" | "tr" | "bl" | "br" }) {
 
 function Index() {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrolled(window.scrollY > 160);
       if (totalHeight > 0) {
         setScrollProgress((window.scrollY / totalHeight) * 100);
       }
@@ -250,7 +255,17 @@ function Index() {
   }, []);
 
   return (
-    <div className="relative min-h-[100dvh] w-full bg-paper text-ink">
+    <div className="portfolio relative min-h-[100dvh] w-full bg-paper text-ink">
+      <div className="portfolio-ticker" aria-hidden="true">
+        <div>
+          FULL-STACK DEVELOPMENT ✳ APPLICATION SECURITY ✳ AI & OTOMASI ✳ FULL-STACK DEVELOPMENT ✳
+          APPLICATION SECURITY ✳ AI & OTOMASI ✳&nbsp;
+        </div>
+        <div>
+          FULL-STACK DEVELOPMENT ✳ APPLICATION SECURITY ✳ AI & OTOMASI ✳ FULL-STACK DEVELOPMENT ✳
+          APPLICATION SECURITY ✳ AI & OTOMASI ✳&nbsp;
+        </div>
+      </div>
       {/* Mechanical static across the sheet */}
       <div
         aria-hidden="true"
@@ -266,7 +281,9 @@ function Index() {
       </div>
 
       {/* Header: brand rail + numbered section index */}
-      <header className="sticky top-0 z-40 border-b-2 border-ink bg-paper">
+      <header
+        className={`sticky top-0 z-40 border-b-2 border-ink bg-paper${scrolled ? " is-scrolled" : ""}${menuOpen ? " menu-open" : ""}`}
+      >
         <div className="mx-auto flex h-12 max-w-[1400px] items-center justify-between px-4 sm:px-6">
           <a href="#beranda" className="flex items-center gap-2.5">
             <span aria-hidden="true" className="h-3.5 w-3.5 bg-hazard" />
@@ -282,6 +299,16 @@ function Index() {
             <span className="hidden font-mono text-[10px] uppercase tracking-[0.15em] text-ink-faint lg:inline">
               REV 2.6
             </span>
+            <button
+              type="button"
+              className="portfolio-menu-toggle"
+              aria-label={menuOpen ? "Tutup navigasi" : "Buka navigasi"}
+              aria-expanded={menuOpen}
+              aria-controls="portfolio-navigation"
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              {menuOpen ? <X size={21} /> : <Plus size={21} />}
+            </button>
             <a href="#kontak" className="btn-fill !px-3 !py-1.5 !text-[11px]">
               Hubungi <ArrowUpRight size={12} />
             </a>
@@ -289,6 +316,7 @@ function Index() {
         </div>
 
         <nav
+          id="portfolio-navigation"
           aria-label="Section index"
           className="flex overflow-x-auto border-t border-ink bg-paper-2"
         >
@@ -296,6 +324,7 @@ function Index() {
             <a
               key={item.id}
               href={`#${item.id}`}
+              onClick={() => setMenuOpen(false)}
               className="flex shrink-0 items-center gap-1.5 border-r border-ink px-3 py-2 font-mono text-[10px] uppercase tracking-[0.12em] text-ink transition-colors last:border-r-0 hover:bg-ink hover:text-paper sm:text-[11px]"
             >
               <span className="text-ink-faint">{String(i + 1).padStart(2, "0")}</span>
@@ -318,6 +347,17 @@ function Index() {
           data-reveal
           className="border-b-2 border-ink px-4 py-8 sm:px-6 md:px-10 md:py-12"
         >
+          <div className="hero-stickers" aria-hidden="true">
+            <span>
+              <Code2 size={27} />
+            </span>
+            <span>
+              <ShieldCheck size={26} />
+            </span>
+            <span>
+              <Bot size={25} />
+            </span>
+          </div>
           <div className="mb-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-b border-ink/30 pb-2 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint md:text-[11px]">
             <span>DOC-ID / ANH-PORT-2026</span>
             <span className="hidden sm:inline">LAT -7.7956° / LON 110.3695°</span>
@@ -333,12 +373,19 @@ function Index() {
                 Student / Full-Stack Developer / Cyber Enthusiast
               </span>
 
-              <h1 className="mt-5 font-display text-[clamp(3rem,10vw,8.5rem)] uppercase leading-[0.85] tracking-[-0.045em]">
-                Arrafi
-                <br />
-                Nur
-                <br />
-                Hafiz
+              <h1
+                aria-label="Arrafi Nur Hafiz"
+                className="hero-title mt-5 font-display text-[clamp(3rem,10vw,8.5rem)] uppercase leading-[0.85] tracking-[-0.045em]"
+              >
+                <span aria-hidden="true">
+                  <span>Arrafi</span>
+                </span>
+                <span aria-hidden="true">
+                  <span>Nur</span>
+                </span>
+                <span aria-hidden="true">
+                  <span>Hafiz</span>
+                </span>
               </h1>
 
               <div className="mt-6 flex h-2 w-full max-w-md" aria-hidden="true">
@@ -420,10 +467,10 @@ function Index() {
 
                 <div className="halftone aspect-square w-full overflow-hidden border border-ink">
                   <img
-                    src={portrait}
+                    src={heroPortrait}
                     alt="Arrafi Nur Hafiz"
-                    width={816}
-                    height={816}
+                    width={1200}
+                    height={1600}
                     className="h-full w-full object-cover"
                   />
                 </div>
@@ -481,11 +528,15 @@ function Index() {
           <div className="grid gap-px border-2 border-ink bg-ink md:grid-cols-12">
             <div className="bg-paper p-3 md:col-span-5">
               <div className="halftone aspect-[4/5] w-full overflow-hidden border border-ink">
-                <img src={portrait} alt="Arrafi Nur Hafiz" className="h-full w-full object-cover" />
+                <img
+                  src={heroPortrait}
+                  alt="Arrafi Nur Hafiz"
+                  className="h-full w-full object-cover"
+                />
               </div>
               <div className="mt-2 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
                 <span>FIG. 02 — PROFILE / PLATE B</span>
-                <span>816 × 816</span>
+                <span>1200 × 1600</span>
               </div>
             </div>
 
@@ -614,6 +665,15 @@ function Index() {
         </section>
 
         {/* PENGALAMAN & REKAM JEJAK */}
+        <div className="work-marquee" aria-hidden="true">
+          {[0, 1].map((copy) => (
+            <div className="work-marquee-track" key={copy}>
+              <span>FULL-STACK</span>
+              <span>SECURITY</span>
+              <span>AI &amp; AUTOMATION</span>
+            </div>
+          ))}
+        </div>
         <section
           id="pengalaman"
           data-reveal
