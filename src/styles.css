@@ -341,7 +341,16 @@ html {
 .portfolio footer a { border-color:#080808; border-radius:50%; }
 .portfolio footer .barcode-light { display:none; }
 .portfolio [data-reveal] { opacity:1; transform:none; transition:none; }
-@media (max-width: 1180px) {
+@media (max-width: 1180px) and (min-width: 901px) {
+  .portfolio header > div { padding:0 16px; }
+  .portfolio header > div > a { padding:9px 13px; gap:8px; }
+  .portfolio header > div > a > span:nth-child(2) { font-size:12.5px; }
+  .portfolio header > div > a > span:nth-child(3) { display:none; }
+  .portfolio header .btn-fill { padding:10px 14px !important; font-size:10px !important; }
+  .portfolio nav { left:53%; max-width:calc(100% - 310px); gap:3px; }
+  .portfolio nav a { padding:10px 11px; font-size:9.5px; }
+}
+@media (max-width: 900px) {
   .portfolio header { margin-bottom:-105px; }
   .portfolio header > div { padding:0 14px; }
   .portfolio nav { top:62px; max-width:calc(100% - 28px); width:max-content; }
