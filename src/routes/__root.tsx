@@ -85,17 +85,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Arrafi Nur Hafiz — Full-Stack Developer & Security Enthusiast" },
+      { title: "Arrafi Nur Hafiz — Software Engineer, Full-Stack Developer & AI Engineer" },
       {
         name: "description",
         content:
-          "Portofolio Arrafi Nur Hafiz: Full-Stack Web Development, Cybersecurity, AI Automation, dan DevOps.",
+          "Portofolio Arrafi Nur Hafiz: Software Engineering, Full-Stack Development, AI Engineering, Application Security, dan DevOps.",
       },
       { name: "author", content: "Arrafi Nur Hafiz" },
       { property: "og:title", content: "Arrafi Nur Hafiz — Portofolio" },
       {
         property: "og:description",
-        content: "Building secure digital experiences: Web, Security, AI, DevOps.",
+        content: "Software Engineer, Full-Stack Developer, and AI Engineer.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

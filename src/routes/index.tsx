@@ -27,16 +27,16 @@ import p2 from "@/assets/p2.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Arrafi Nur Hafiz — Full-Stack Developer & Security Enthusiast" },
+      { title: "Arrafi Nur Hafiz — Software Engineer, Full-Stack Developer & AI Engineer" },
       {
         name: "description",
         content:
-          "Portfolio & work by Arrafi Nur Hafiz: Modern Web Architecture, Application Security, Autonomous AI Swarms, and DevOps.",
+          "Portfolio & work by Arrafi Nur Hafiz: Software Engineering, Full-Stack Web Architecture, AI Engineering, Application Security, and DevOps.",
       },
       { property: "og:title", content: "Arrafi Nur Hafiz — Portfolio" },
       {
         property: "og:description",
-        content: "Student, developer and cyber enthusiast.",
+        content: "Software Engineer, Full-Stack Developer, and AI Engineer.",
       },
     ],
   }),
@@ -58,7 +58,7 @@ const socials = [
   {
     icon: Linkedin,
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/arrafi-nur-hafiz-06b7083a1",
+    href: "https://www.linkedin.com/in/arrafinurhafiz",
   },
   { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@RapyTech" },
   { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/affiizzz/" },
@@ -128,14 +128,26 @@ const projects = [
   },
 ];
 
-const experiences = [
+const experiences: {
+  period: string;
+  value: string;
+  role: string;
+  place: string;
+  detail: string;
+  highlights?: string[];
+}[] = [
   {
     period: "Agu 2026 – Sekarang",
     value: "2026-08",
     role: "Full-Stack Developer Intern",
     place: "CV Karya Wahana Sentosa (KWaS)",
     detail:
-      "Mengembangkan modul sistem pendukung Material Requirements Planning (MRP), arsitektur antarmuka, backend API, dan manajemen struktur basis data.",
+      "Merancang dan membangun sistem pendamping Material Requirements Planning (MRP) berbasis otomasi dan AI Agent untuk pelacakan produksi (production tracking) serta Quality Control (QC) secara end-to-end.",
+    highlights: [
+      "Membangun sistem pendamping MRP terotomasi dengan AI Agent untuk memantau alur produksi, kebutuhan material, dan inspeksi Quality Control (QC) secara real-time.",
+      "Mengembangkan antarmuka frontend, backend API, dan integrasi sistem end-to-end guna mempercepat perencanaan serta eksekusi manufaktur.",
+      "Mendampingi stakeholder dalam memahami konsep MRP, alur kerja sistem, dan standarisasi pelacakan produksi serta QC digital.",
+    ],
   },
   {
     period: "2024 – Sekarang",
@@ -370,7 +382,7 @@ function Index() {
           <div className="grid gap-8 md:grid-cols-12 md:gap-10">
             <div className="md:col-span-7">
               <span className="inline-block bg-hazard px-2.5 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-white">
-                Student / Full-Stack Developer / Cyber Enthusiast
+                Software Engineer / Full-Stack Developer / AI Engineer
               </span>
 
               <h1
@@ -394,9 +406,9 @@ function Index() {
               </div>
 
               <p className="mt-6 max-w-xl text-sm leading-relaxed text-ink-soft md:text-base">
-                Mahasiswa Sistem Informasi UTDI &amp; Full-Stack Developer. Berfokus pada rekayasa
-                modern web architecture, keamanan sistem terdesentralisasi, Zero-Knowledge Proofs,
-                dan otomasi berbasis AI.
+                Mahasiswa Sistem Informasi UTDI — Software Engineer, Full-Stack Developer, &amp; AI
+                Engineer. Berfokus pada rekayasa modern web architecture, keamanan sistem
+                terdesentralisasi, Zero-Knowledge Proofs, dan otomasi berbasis AI.
               </p>
 
               <div className="mt-5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint">
@@ -573,7 +585,7 @@ function Index() {
                     [ Peran ]
                   </dt>
                   <dd className="mt-1.5 font-display text-sm uppercase leading-tight">
-                    Full-Stack Developer
+                    Software Engineer / Full-Stack Developer / AI Engineer
                   </dd>
                 </div>
               </dl>
@@ -706,6 +718,22 @@ function Index() {
                     {exp.place}
                   </p>
                   <p className="mt-2 text-xs leading-relaxed text-ink-soft">{exp.detail}</p>
+                  {exp.highlights && (
+                    <ul className="mt-3 space-y-1.5 border-t border-ink/20 pt-3">
+                      {exp.highlights.map((item) => (
+                        <li
+                          key={item}
+                          className="flex items-start gap-2.5 text-xs leading-relaxed text-ink-soft"
+                        >
+                          <span
+                            aria-hidden="true"
+                            className="mt-1.5 h-1.5 w-1.5 shrink-0 bg-hazard"
+                          />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </li>
             ))}
